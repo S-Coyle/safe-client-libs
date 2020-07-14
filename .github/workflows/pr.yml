@@ -62,7 +62,7 @@ jobs:
       # Download shared script for starting a baby fleming section and make it executable
       - name: Download start-local-section.sh
         run: |
-          wget "https://github.com/S-Coyle/QA/blob/add-ci-script/misc-scripts/start-local-section.sh"
+          wget "https://raw.githubusercontent.com/S-Coyle/QA/add-ci-script/misc-scripts/start-local-section.sh"
           chmod +x start-local-section.sh
       
       # Run start-local-section.sh script to start a local section
