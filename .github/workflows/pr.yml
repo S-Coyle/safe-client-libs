@@ -59,11 +59,15 @@ jobs:
           toolchain: stable
           override: true
 
-      # Use dedicated action for starting a baby fleming section
-      - uses: S-Coyle/start-local-safe-network-action@v1
-        with:
-          vault-version: '${{env.SAFE_VAULT_VERSION}}'
-          cli-version: '${{env.SAFE_CLI_VERSION}}'
+      # Download shared script for starting a baby fleming section and make it executable
+      - name: Download start-local-section.sh
+        run: |
+          wget "https://github.com/S-Coyle/QA/blob/add-ci-script/misc-scripts/start-local-section.sh"
+          chmod +x start-local-section.sh
+      
+      # Run start-local-section.sh script to start a local section
+      - name: Run start-local-section.sh
+        run: ./start-local-section.sh ${{env.SAFE_VAULT_VERSION}} ${{env.SAFE_CLI_VERSION}}
 
       # Generate Cargo.lock, needed for the cache.
       - name: Generate Cargo.lock
