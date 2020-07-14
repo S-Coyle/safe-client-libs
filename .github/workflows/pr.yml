@@ -69,6 +69,14 @@ jobs:
       - name: Run start-local-section.sh
         run: ./start-local-section.sh ${{env.SAFE_VAULT_VERSION}} ${{env.SAFE_CLI_VERSION}}
 
+      # Confirm vaults are running on this VM
+      - name: Check if vaults are running
+        run: pgrep -a safe_vault
+      
+      # Print connection info
+      - name: Print connection info
+        run: cat ~/.config/safe_vault/vault_connection_info.config
+
       # Generate Cargo.lock, needed for the cache.
       - name: Generate Cargo.lock
         run: cargo generate-lockfile
