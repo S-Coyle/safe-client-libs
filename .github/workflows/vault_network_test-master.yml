@@ -2,7 +2,9 @@
 # latest safe-vault master branch and run the SCL tests
 # (cargo test --release) on it.
 
-name: [pull_request, push]
+name: Master Vault Branch Network Tests
+
+on: [pull_request, push]
 
 env:
   # Run all cargo commands with --verbose.
