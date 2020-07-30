@@ -135,7 +135,7 @@ jobs:
 
   network-test:
     name: E2E against real network (latest vault, cli & authd releases)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v1
       - name: Install Rust
@@ -166,16 +166,6 @@ jobs:
       # Generate Cargo.lock, needed for the cache.
       - name: Generate Cargo.lock
         run: cargo generate-lockfile
-      
-      # Cache.
-      - name: Cargo cache registry, index and build
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-cache-${{ hashFiles('**/Cargo.lock') }}
 
       # Run tests.
       - name: Run the tests
