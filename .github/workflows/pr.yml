@@ -167,23 +167,6 @@ jobs:
       - name: Generate Cargo.lock
         run: cargo generate-lockfile
 
-      # Cache.
-      - name: Cache cargo registry
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/registry
-          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
-      - name: Cache cargo index
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/git
-          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
-      - name: Cache cargo build
-        uses: actions/cache@v1
-        with:
-          path: target
-          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-
       # Run tests.
       - name: Run the tests
         run: cargo test --release
@@ -191,3 +174,7 @@ jobs:
       - name: Stop the network.
         if: failure()
         run: safe vault killall || true && safe auth stop || true
+
+      - name: Failure logs.
+        if: failure()
+        run: cat ~/.safe/vault/baby-fleming-vaults/*/*.log
